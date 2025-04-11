@@ -52,7 +52,7 @@ const Sidebar = () => {
               <FiTrash2 />
             </div>
           </div>
-          <div className="w-full bg-black text-white shadow-md text-center p-2 rounded hover:bg-white hover:text-black hover:border mt-5 transition duration-200 cursor-pointer">
+          <div className="w-full bg-black text-white shadow-md text-center p-2 rounded hover:bg-white hover:text-black hover:border mt-5 transition duration-200 cursor-pointer ">
             <button className="cursor-pointer ">Proceed To Payment</button>
           </div>
         </div>
