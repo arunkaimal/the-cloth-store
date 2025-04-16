@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [form, setForm] = useState({
@@ -34,11 +34,27 @@ const RegisterPage = () => {
         return;
       }
 
-      await fetch(`http://localhost:5000/users`, {
+      const regResponse = await fetch(`http://localhost:5000/users`, {
         method: "POST",
-        headers: "Content-Type/Application-json",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+        }),
       });
-    } catch (error) {}
+
+      if (regResponse.ok) {
+        setMessage("Resgistration Successful...");
+        // setTimeout(() => navigate("/login"), 4000);
+        navigate("/login")
+      } else {
+        setMessage("Something went wrong,Please try again later...");
+      }
+    } catch (error) {
+      console.error("Registration Error:", error);
+      setMessage("Server Error, please try again later...");
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -46,7 +62,13 @@ const RegisterPage = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Create an Account
         </h2>
-        <form className="space-y-5">
+
+        {message && (
+          <div className="text-center mb-4 text-red-600 font-medium">
+            {message}
+          </div>
+        )}
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
             <label
               className="block text-gray-700 font-medium mb-1"
@@ -59,6 +81,9 @@ const RegisterPage = () => {
               type="text"
               className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Your full name"
+              value={form.name}
+              name="name"
+              onChange={handleChange}
             />
           </div>
 
@@ -72,6 +97,9 @@ const RegisterPage = () => {
             <input
               id="email"
               type="email"
+              value={form.email}
+              onChange={handleChange}
+              name="email"
               className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="you@example.com"
             />
@@ -86,6 +114,9 @@ const RegisterPage = () => {
             </label>
             <input
               id="password"
+              value={form.password}
+              onChange={handleChange}
+              name="password"
               type="password"
               className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Enter a strong password"
@@ -101,6 +132,9 @@ const RegisterPage = () => {
             </label>
             <input
               id="confirm-password"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              name="confirmPassword"
               type="password"
               className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Re-enter your password"
@@ -116,12 +150,12 @@ const RegisterPage = () => {
 
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-indigo-600 font-medium hover:underline"
             >
               Login
-            </a>
+            </Link>
           </p>
         </form>
       </div>

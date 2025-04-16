@@ -13,18 +13,21 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
     <>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="product/:id" element={<ProductDetails />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+        {/* <AuthProvider> */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="product/:id" element={<ProductDetails />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        {/* </AuthProvider> */}
         <Sidebar />
         <Footer />
       </Router>
