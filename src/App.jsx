@@ -13,21 +13,25 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-import { AuthProvider } from "./contexts/AuthContext";
+import AdminHome from "./admin/AdminHome";
 
 function App() {
   return (
     <>
       <Router>
-        <Header />
-        {/* <AuthProvider> */}
-          <Routes>
+        <Routes>
+          {/* User Routes */}
+          <Route element={<Header />}>
             <Route path="/" element={<Home />} />
             <Route path="product/:id" element={<ProductDetails />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-          </Routes>
-        {/* </AuthProvider> */}
+          </Route>
+
+          {/* Admin Routes */}
+          <Route path="/admin-dashboard" element={<AdminHome />} />
+        </Routes>
+
         <Sidebar />
         <Footer />
       </Router>
