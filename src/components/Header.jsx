@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { SidebarContext } from "../contexts/SidebarContext";
 import { BsBag } from "react-icons/bs";
 import { CartContext } from "../contexts/CartContext";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Logo from "../assets/icons/clothLogo.svg";
 import Hero from "./Hero";
 import { useNavigate } from "react-router-dom";
@@ -85,6 +85,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <Outlet />
     </>
   );
 };
